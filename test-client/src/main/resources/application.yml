@@ -1,0 +1,15 @@
+server:
+  port: 8893
+  servlet:
+    context-path: /test
+
+spring:
+  application:
+    name: test-client
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8895/eureka/
+  instance:
+    prefer-ip-address: true

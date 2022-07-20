@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: eureka-server
+server:
+  port: 8895
+eureka:
+  client:
+    #是否要注册到注册中心
+    register-with-eureka: false
+    #是否要从注册中心获取服务
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8895/eureka/
+  server:
+    #触发自我保护机制的阈值
+    renewal-percent-threshold: 0.5
