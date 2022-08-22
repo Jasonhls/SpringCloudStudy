@@ -20,6 +20,7 @@
         <module>client-server</module>
         <module>gateway-server</module>
         <module>test-client</module>
+        <module>test-client-api</module>
     </modules>
 
     <properties>

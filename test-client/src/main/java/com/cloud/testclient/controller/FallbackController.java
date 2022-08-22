@@ -1,11 +1,11 @@
 package com.cloud.testclient.controller;
 
+import com.cloud.testclient.api.HelloFeignClient;
+import com.cloud.testclient.req.StudentReq;
+import com.cloud.testclient.resp.Student;
 import com.cloud.testclient.service.CircuitBreakerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.util.Date;
@@ -18,6 +18,10 @@ import java.util.Date;
 @RestController
 @RequestMapping(value = "/fallback")
 public class FallbackController {
+
+    @Autowired
+    private HelloFeignClient helloFeignClient;
+
     @GetMapping(value = "/get")
     public Mono<String> fallback() {
         return Mono.just("service error, jump fallback");
@@ -25,6 +29,16 @@ public class FallbackController {
 
     @Autowired
     HystrixCommandController hystrixCommandController;
+
+    @GetMapping(value = "/addStudent")
+    public Student addStudent() {
+        StudentReq req = new StudentReq();
+        req.setAge(10);
+        req.setName("hello");
+        Student student = helloFeignClient.getStudent(req);
+        return student;
+    }
+
 
     @GetMapping(value = "/testThreadFallback")
     public void testThreadFallback() throws InterruptedException {

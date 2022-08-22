@@ -1,4 +1,4 @@
-package com.cloud.testclient.pojo;
+package com.cloud.testclient.resp;
 
 import lombok.Data;
 

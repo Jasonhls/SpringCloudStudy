@@ -1,6 +1,8 @@
 package com.cloud.testclient.controller;
 
-import com.cloud.testclient.pojo.Student;
+import com.cloud.testclient.api.HelloFeignClient;
+import com.cloud.testclient.req.StudentReq;
+import com.cloud.testclient.resp.Student;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,17 +14,17 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping(value = "/hello")
-public class HelloController {
+public class HelloController implements HelloFeignClient {
     @GetMapping(value = "/sayHello")
     public String getSayHelloResult(HttpServletRequest request, String name) {
         return "hello, " + request.getHeader("token");
     }
 
     @PostMapping(value = "/getStudent")
-    public Student getStudent(String name, Integer age) {
+    public Student getStudent(@RequestBody StudentReq studentReq) {
         Student s = new Student();
-        s.setName(name);
-        s.setAge(age);
+        s.setName(studentReq.getName());
+        s.setAge(studentReq.getAge());
         return s;
     }
 
