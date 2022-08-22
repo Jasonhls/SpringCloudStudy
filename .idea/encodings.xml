@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$/client-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/eureka-server/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gateway-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/test-client-api/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/test-client/src/main/java" charset="UTF-8" />
   </component>
 </project>
