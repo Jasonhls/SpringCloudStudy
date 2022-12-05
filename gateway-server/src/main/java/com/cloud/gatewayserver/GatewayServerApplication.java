@@ -15,7 +15,7 @@ public class GatewayServerApplication {
         SpringApplication.run(GatewayServerApplication.class, args);
     }
 
-    @Bean
+    /*@Bean
     public RouteLocator myRoutes(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route(p ->p.path("/")
@@ -24,6 +24,6 @@ public class GatewayServerApplication {
                 .uri("http://localhost:8893/test/hello/sayHello?name=hls")
                 )
                 .build();
-    }
+    }*/
 
 }
