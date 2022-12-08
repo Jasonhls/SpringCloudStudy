@@ -1,4 +1,4 @@
-package com.cloud.testclient.controller.test;
+package com.cloud.testclient.controller.hystirx;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

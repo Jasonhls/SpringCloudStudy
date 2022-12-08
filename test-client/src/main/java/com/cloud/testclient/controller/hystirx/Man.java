@@ -1,4 +1,4 @@
-package com.cloud.testclient.controller.test;
+package com.cloud.testclient.controller.hystirx;
 
 import org.springframework.stereotype.Component;
 

@@ -1,5 +1,5 @@
 test:
-  uri: lb://eureka-client
+  uri: http://localhost:8891/client
 test2:
   uri: http://localhost:8893/test
 
