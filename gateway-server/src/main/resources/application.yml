@@ -19,19 +19,24 @@ spring:
     name: gateway-client
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+      #路由配置
       routes:
-        - id: host_route
+        #id随便，保证唯一就行
+        - id: eureka-client
+          #方式一：
           uri: ${test.uri}
+#          uri: http://localhost:8891/client
           predicates:
             - Path=/client/**   #这里的path必须与项目的server.servlet.context-path保持一致
 
-        - id: test_source
-          uri: ${test2.uri}
+        #id随便，保证唯一就行
+        - id: test-client
+          #方式一：使用url
+#          uri: ${test2.uri}
+          #方式二：lb://注册的微服务名称
+          uri: lb://test-client
           predicates:
             - Path=/test/**    #这里的path必须与项目的server.servlet.context-path保持一致
-
-#          filters:
-#            - name: Hrystrix
-#              args:
-#                name: fallbackcmd
-#                fallback: forward:/fallback
