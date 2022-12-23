@@ -21,6 +21,7 @@ spring:
     gateway:
       discovery:
         locator:
+          #让gateway可以发现微服务，这个很重要，不然下面路由通过lb://微服务名的方式找不到服务
           enabled: true
       #路由配置
       routes:
@@ -30,7 +31,8 @@ spring:
           uri: ${test.uri}
 #          uri: http://localhost:8891/client
           predicates:
-            - Path=/client/**   #这里的path必须与项目的server.servlet.context-path保持一致
+            #这里的path必须与项目的server.servlet.context-path保持一致
+            - Path=/client/**
 
         #id随便，保证唯一就行
         - id: test-client
@@ -39,4 +41,5 @@ spring:
           #方式二：lb://注册的微服务名称
           uri: lb://test-client
           predicates:
-            - Path=/test/**    #这里的path必须与项目的server.servlet.context-path保持一致
+            #这里的path必须与项目的server.servlet.context-path保持一致
+            - Path=/test/**
