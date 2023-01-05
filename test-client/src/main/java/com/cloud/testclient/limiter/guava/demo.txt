@@ -1,0 +1,2 @@
+Guava 的 RateLimiter 基于令牌桶算法实现，不过在传统的令牌桶算法基础上做了点改进，
+支持两种不同的限流方式：平滑突发限流（SmoothBursty） 和 平滑预热限流（SmoothWarmingUp）。

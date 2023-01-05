@@ -6,6 +6,11 @@ server:
 spring:
   application:
     name: eureka-client
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: scrm_order
 eureka:
   client:
     service-url:
