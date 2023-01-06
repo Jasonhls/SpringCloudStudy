@@ -1,7 +1,9 @@
 package com.cloud.clientserver.controller;
 
 import com.cloud.clientserver.pojo.InnerOrder;
+import com.cloud.clientserver.pojo.InnerOrderParam;
 import com.cloud.clientserver.service.MongodbService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,5 +21,10 @@ public class MongodbController {
     @PostMapping(value = "/saveOrUpdate")
     public void saveOrUpdate(@RequestBody List<InnerOrder> list) {
         mongodbService.saveOrUpdate(list);
+    }
+
+    @PostMapping(value = "/list")
+    public PageInfo<InnerOrder> list(@RequestBody InnerOrderParam param) {
+        return mongodbService.list(param);
     }
 }
