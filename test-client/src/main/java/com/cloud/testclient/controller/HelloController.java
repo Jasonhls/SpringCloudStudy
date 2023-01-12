@@ -41,4 +41,9 @@ public class HelloController implements HelloFeignClient {
 
         return null;
     }
+
+    @PostMapping(value = "/getStr")
+    public String getStr() {
+        return "hls";
+    }
 }

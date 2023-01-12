@@ -1,9 +1,8 @@
 package com.cloud.clientserver.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.cloud.clientserver.feign.TestFeign;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: helisen
@@ -13,8 +12,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/hello")
 public class HelloController {
+
+    @Autowired
+    private TestFeign testFeign;
+
     @GetMapping(value = "/sayHello")
     public String sayHello(@RequestParam(value = "name") String name) {
         return "hello, " + name;
+    }
+
+    @PostMapping(value = "/getString")
+    public String getString() {
+        //服务之间直接调用
+        return testFeign.test();
     }
 }
