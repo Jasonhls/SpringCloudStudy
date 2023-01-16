@@ -1,0 +1,2 @@
+自定义实现枚举的正反序列化
+参考地址：http://events.jianshu.io/p/33e537ea6f10
