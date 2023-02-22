@@ -1,7 +1,8 @@
-package com.cloud.clientserver.service;
+package com.cloud.clientserver.service.impl;
 
 import com.cloud.clientserver.pojo.InnerOrder;
 import com.cloud.clientserver.pojo.InnerOrderParam;
+import com.cloud.clientserver.service.MongodbService;
 import com.cloud.clientserver.util.FieldUtils;
 import com.github.pagehelper.PageInfo;
 import com.mongodb.bulk.BulkWriteResult;
@@ -30,7 +31,7 @@ import java.util.regex.Pattern;
 
 @Service
 @Slf4j
-public class MongodbServiceImpl implements MongodbService{
+public class MongodbServiceImpl implements MongodbService {
     @Autowired
     private MongoTemplate mongoTemplate;
 

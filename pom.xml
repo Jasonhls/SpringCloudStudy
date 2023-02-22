@@ -21,6 +21,8 @@
         <module>gateway-server</module>
         <module>test-client</module>
         <module>test-client-api</module>
+        <module>mq-service</module>
+        <module>rocketmq</module>
     </modules>
 
     <properties>
