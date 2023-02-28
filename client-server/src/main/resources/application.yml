@@ -2,6 +2,9 @@ server:
   port: 8891
   servlet:
     context-path: /client
+#  tomcat:
+#    threads:
+#      max:
 
 spring:
   application:
@@ -9,7 +12,7 @@ spring:
   #mongodb配置信息
   data:
     mongodb:
-      host: localhost
+      host: 192.168.156.35
       port: 27017
       database: scrm_order
   #rabbitmq配置信息
@@ -25,9 +28,21 @@ spring:
 eureka:
   client:
     service-url:
-      defaultZone: http://192.168.156.35:8895/eureka/
+      defaultZone: http://localhost:8895/eureka/
   instance:
     prefer-ip-address: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # yml文件配置这个值，必须添加引号，如果是properties文件，就直接用*，不需要加引号
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+
 #rocketmq配置信息
 rocketmq:
   #nameservice服务器地址（多个以英文逗号隔开）

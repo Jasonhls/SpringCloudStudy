@@ -7,8 +7,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.cloud.clientserver.pojo.RabbitmqConsumerInfo;
 import com.cloud.clientserver.util.IpUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +35,7 @@ public class RabbitConfig {
     private String host;
 
     @Value("${spring.rabbitmq.port}")
-    private String port;
+    private Integer port;
 
     @Value("${spring.rabbitmq.username}")
     private String username;
@@ -50,10 +54,18 @@ public class RabbitConfig {
     @Bean
     public ConnectionFactory connectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
+        //host port必须配置，不然到了linux上部署这个jar包，就会包连接拒绝
+        connectionFactory.setHost(host);
+        connectionFactory.setPort(port);
         connectionFactory.setUsername(username);
         connectionFactory.setPassword(password);
         connectionFactory.setPublisherConfirms(true);
         return connectionFactory;
+    }
+
+    @Bean
+    public RabbitAdmin rabbitAdmin() {
+        return new RabbitAdmin(connectionFactory());
     }
 
     /**
@@ -67,14 +79,15 @@ public class RabbitConfig {
      * 192.168.1.1.queue5
      */
     @Bean
-    public String[] mqMsgQueues() throws Exception{
+    public String[] mqMsgQueues(RabbitAdmin rabbitAdmin) throws Exception{
         String[] queueNames = new String[queueNum];
         String hostName = IpUtils.getIp();
+        TopicExchange topicExchange = new TopicExchange(exchangeName);
         for (int i = 1; i <= queueNum; i++) {
             String queueName = String.format("%s.queue%d", hostName, i);
-            connectionFactory().createConnection().createChannel(false).queueDeclare(queueName, true, false, false, null);
-            //第三个参数是routingKey
-            connectionFactory().createConnection().createChannel(false).queueBind(queueName, exchangeName, queueName);
+            Queue queue = new Queue(queueName, true);
+            rabbitAdmin.declareQueue(queue);
+            rabbitAdmin.declareBinding(BindingBuilder.bind(queue).to(topicExchange).with(queueName));
             queueNames[i - 1] = queueName;
         }
         return queueNames;

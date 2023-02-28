@@ -53,3 +53,13 @@ spring:
           uri: lb://mq2-service
           predicates:
             - Path=/mq2/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # yml文件配置这个值，必须添加引号，如果是properties文件，就直接用*，不需要加引号
+        include: "*"
+  metrics:
+    tags:
+      application: ${spring.application.name}

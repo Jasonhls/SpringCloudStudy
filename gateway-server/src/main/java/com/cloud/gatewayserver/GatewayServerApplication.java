@@ -1,6 +1,9 @@
 package com.cloud.gatewayserver;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -25,5 +28,10 @@ public class GatewayServerApplication {
                 )
                 .build();
     }*/
+
+    @Bean
+    public MeterRegistryCustomizer<MeterRegistry> configurer(@Value("${spring.application.name}") String applicationName) {
+        return registry -> registry.config().commonTags("application", applicationName);
+    }
 
 }
