@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cloud.clientserver.mapper.StudentMapper">
+
+    <select id="selectStudentList" parameterType="com.cloud.clientserver.param.StudentPageParam"
+        resultType="com.cloud.clientserver.pojo.Student">
+        select *
+        from t_student
+        <where>
+            1 = 1
+            <if test="qo.id != null">
+                and id = #{qo.id}
+            </if>
+            <if test="qo.name != null and qo.name != ''">
+                and name like CONCAT(#{qo.name}, '%')
+            </if>
+        </where>
+    </select>
+</mapper>
