@@ -23,6 +23,7 @@
         <module>test-client-api</module>
         <module>mq-service</module>
         <module>rocketmq</module>
+        <module>es-client</module>
     </modules>
 
     <properties>
