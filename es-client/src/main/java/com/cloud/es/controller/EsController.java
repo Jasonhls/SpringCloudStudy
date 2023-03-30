@@ -3,9 +3,12 @@ package com.cloud.es.controller;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.json.JSONUtil;
+import com.alibaba.excel.EasyExcel;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.cloud.es.config.EsConfig;
 import com.cloud.es.pojo.Order;
+import com.cloud.es.pojo.OrderAnalysisEventListener;
+import com.cloud.es.pojo.OrderExcel2;
 import com.cloud.es.service.OrderService;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
@@ -19,9 +22,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +80,21 @@ public class EsController {
 //        }).collect(Collectors.toList());
 //        log.info("内容索引生成:{}", collect);
         return bulk.hasFailures();
+    }
+
+    @PostMapping("importOrders")
+    public Integer importOrders(@RequestParam("file") MultipartFile multipartFile) throws Exception {
+        // 匿名内部类 不用额外写一个DemoDataListener
+        // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
+        InputStream is = multipartFile.getInputStream();
+        OrderAnalysisEventListener orderAnalysisEventListener = new OrderAnalysisEventListener();
+        EasyExcel.read(is, OrderExcel2.class, orderAnalysisEventListener)
+                .sheet(0)
+                .headRowNumber(3)
+                .doReadSync();
+        is.close();
+        List<OrderExcel2> successList = orderAnalysisEventListener.getResultList();
+        return successList.size();
     }
 
 }
