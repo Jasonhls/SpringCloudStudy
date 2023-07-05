@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Data;
+
+import java.util.Date;
 
 /**
  * @Author: 何立森
@@ -23,5 +27,6 @@ public class Student {
     @TableField("sex")
     private Integer sex;
     @TableField("create_at")
-    private Long createAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createAt;
 }

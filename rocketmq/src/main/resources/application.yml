@@ -1,0 +1,20 @@
+#rocketmq配置信息
+rocketmq:
+  #nameservice服务器地址（多个以英文逗号隔开）
+  name-server: 192.168.156.35:9876  #NameServer地址
+  #生产者配置
+  producer:
+    #组名
+    group: springCloudGroup #默认消息组
+    #目的地(topic:tag)
+    #topic
+    topic: client-topic
+    #sync tag(同步消息tag)
+    sync-tag: client-sync-tags
+    #async tag(异步消息tag)
+    async-tag: client-async-tags
+    #oneway tag(单向消息tag)
+    oneway-tag: client-oneway-tags
+logging:
+  level:
+    com.cloud.clientserver: debug

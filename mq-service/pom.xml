@@ -33,11 +33,10 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-spring-boot-starter</artifactId>
-            <version>2.2.2</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -52,7 +51,6 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.8</version>
         </dependency>
 
         <dependency>
@@ -62,7 +60,12 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson-spring-boot-starter</artifactId>
-            <version>3.14.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.trueland.tcloud.scrm</groupId>
+            <artifactId>scrm-common-delayqueue</artifactId>
+            <version>CM1.8.2.3-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

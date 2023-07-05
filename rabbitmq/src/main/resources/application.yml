@@ -1,0 +1,37 @@
+server:
+  port: 8897
+  servlet:
+    context-path: /rabbitmq
+
+spring:
+  application:
+    name: es-rabbitmq
+  #rabbitmq配置信息
+  #发送消息报错：Login was refused using authentication mechanism PLAIN. For details see the broker logfile
+  #原因：rabbitmq从3.3.0开始禁止使用guest/guest权限通过除localhost外的访问，所以新增一个root用户
+  #如果要使用ip，就不用guest，重新创建一个admin的账号密码
+  rabbitmq:
+    host: 192.168.156.35
+    port: 5672
+    username: admin
+    password: admin
+  redis:
+    database: 0
+    # Redis服务器地址
+    host: 192.168.44.156
+    # Redis服务器连接端口
+    port: 6379
+    password: zhendaa11234
+    # timeout: 5000ms
+
+delay-queue:
+  rabbitmq:
+    xdelayExchange: SCRM_BASE_XDELAY_EXCHANGE
+    enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8895/eureka/
+  instance:
+    prefer-ip-address: true

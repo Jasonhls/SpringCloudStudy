@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    nacos:
+      server-addr: 172.31.255.39:8848
+      discovery:
+        namespace: cbbbc3b7-187e-4ab0-9ae6-9747bd8d7028
+        group: SEATA_GROUP
+        ip: 192.168.156.174

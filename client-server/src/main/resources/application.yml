@@ -15,19 +15,10 @@ spring:
       host: 192.168.156.35
       port: 27017
       database: scrm_order
-  #rabbitmq配置信息
-  #发送消息报错：Login was refused using authentication mechanism PLAIN. For details see the broker logfile
-  #原因：rabbitmq从3.3.0开始禁止使用guest/guest权限通过除localhost外的访问，所以新增一个root用户
-  #如果要使用ip，就不用guest，重新创建一个admin的账号密码
-  rabbitmq:
-    host: 192.168.156.35
-    port: 5672
-    username: admin
-    password: admin
   #数据库连接信息
   datasource:
-    url: jdbc:mysql://192.168.156.174:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&AllowPublicKeyRetrieval=True
-    username: ruser
+    url: jdbc:mysql://localhost:3306/test?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&AllowPublicKeyRetrieval=True
+    username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
 mybatis-plus:
@@ -54,25 +45,3 @@ management:
   metrics:
     tags:
       application: ${spring.application.name}
-
-
-#rocketmq配置信息
-rocketmq:
-  #nameservice服务器地址（多个以英文逗号隔开）
-  name-server: 192.168.156.35:9876  #NameServer地址
-  #生产者配置
-  producer:
-    #组名
-    group: springCloudGroup #默认消息组
-    #目的地(topic:tag)
-    #topic
-    topic: client-topic
-    #sync tag(同步消息tag)
-    sync-tag: client-sync-tags
-    #async tag(异步消息tag)
-    async-tag: client-async-tags
-    #oneway tag(单向消息tag)
-    oneway-tag: client-oneway-tags
-logging:
-  level:
-    com.cloud.clientserver: debug
