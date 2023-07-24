@@ -7,12 +7,15 @@ import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCusto
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.util.ClassUtils;
 
 @EnableEurekaServer
 @SpringBootApplication
 public class EurekaServerApplication {
 
     public static void main(String[] args) {
+        boolean present1 = ClassUtils.isPresent("org.springframework.web.servlet.DispatcherServlet", null);
+        boolean present2 = ClassUtils.isPresent("org.springframework.web.reactive.DispatcherHandler", null);
         SpringApplication.run(EurekaServerApplication.class, args);
     }
 

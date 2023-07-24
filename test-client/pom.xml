@@ -55,11 +55,11 @@
             <artifactId>netty-all</artifactId>
         </dependency>
 
-        <!--<dependency>
+        <dependency>
             <groupId>com.cloud</groupId>
             <artifactId>test-client-api</artifactId>
             <version>1.0.0-SNAPSHOT</version>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>cn.hutool</groupId>
