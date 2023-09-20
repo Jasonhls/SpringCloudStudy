@@ -26,6 +26,7 @@
         <module>es-client</module>
         <module>rabbitmq</module>
         <module>seata-client</module>
+        <module>sharding-jdbc</module>
     </modules>
 
     <properties>
@@ -42,6 +43,7 @@
         <seata.version>1.5.2</seata.version>
         <spring-cloud-starter-alibaba-seata.verison>2021.1</spring-cloud-starter-alibaba-seata.verison>
         <fastjson.version>2.0.25</fastjson.version>
+        <druid.version>1.1.2</druid.version>
     </properties>
 
     <dependencyManagement>
@@ -112,6 +114,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>fastjson</artifactId>
                 <version>${fastjson.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
             </dependency>
 
             <dependency>

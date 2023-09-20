@@ -54,6 +54,11 @@ spring:
           predicates:
             - Path=/mq2/**
 
+        - id: sharding-jdbc
+          uri: lb://sharding-jdbc
+          predicates:
+            - Path=/sharding/**
+
 management:
   endpoints:
     web:
