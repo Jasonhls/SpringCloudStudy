@@ -6,7 +6,8 @@ spring:
   application:
     name: sharding-jdbc
   profiles:
-    active: sharding1
+#    active: sharding_table   #分表
+    active: sharding_database #分库
 
 mybatis-plus:
   mapper-locations: mapper/*.xml

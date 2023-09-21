@@ -15,8 +15,8 @@ spring:
           actual-data-nodes: ds1.tb_order_$->{0..1}
           table-strategy:
             standard:
-              precise-algorithm-class-name: com.cloud.shardingjdbc.config.MyTableShardingAlgorithm
               sharding-column: id #用id作为分片字段
+              precise-algorithm-class-name: com.cloud.shardingjdbc.config.MyTableShardingAlgorithm
 
     #            inline:
     #              sharding-column: id  #配置分表策略，根据id作为分片依据（分片键）

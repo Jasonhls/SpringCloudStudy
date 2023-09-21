@@ -1,0 +1,31 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/db_order_0?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&AllowPublicKeyRetrieval=True
+        username: root
+        password: 123456
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/db_order_1?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&AllowPublicKeyRetrieval=True
+        username: root
+        password: 123456
+    sharding:
+      tables:
+        tb_order:
+          actual-data-nodes: ds$->{0..1}.tb_order_$->{0..1}  #配置物理表的分片策略
+          table-strategy:
+            standard:
+              sharding-column: id #分表字段
+              precise-algorithm-class-name: com.cloud.shardingjdbc.config.MyTableShardingAlgorithm #分表策略
+          database-strategy:
+            standard:
+              sharding-column: id #分库字段
+              precise-algorithm-class-name: com.cloud.shardingjdbc.config.MyDatabaseShardingAlgorithm #分库策略
+    props:
+      sql:
+        show: true
