@@ -18,7 +18,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +41,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, TbOrder> implemen
                 .orderByDesc(TbOrder::getCreateTime);
         List<TbOrder> list = list(qw);
         if(CollectionUtil.isEmpty(list)) {
-            return PageInfo.of(Collections.EMPTY_LIST);
+            return PageInfo.of(new ArrayList<>());
         }
         List<OrderResult> orderResults = BeanUtil.copyToList(list, OrderResult.class);
         List<Long> orderIds = list.stream().map(TbOrder::getId).collect(Collectors.toList());

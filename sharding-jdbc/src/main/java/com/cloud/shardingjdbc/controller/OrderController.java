@@ -1,18 +1,15 @@
 package com.cloud.shardingjdbc.controller;
 
-import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.json.JSONUtil;
-import com.cloud.shardingjdbc.entity.TbOrder;
 import com.cloud.shardingjdbc.param.OrderListParam;
 import com.cloud.shardingjdbc.param.OrderParam;
 import com.cloud.shardingjdbc.result.OrderResult;
 import com.cloud.shardingjdbc.service.OrderService;
+import com.cloud.shardingjdbc.utils.DataSourceUtils;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @Author: 何立森
@@ -34,6 +31,7 @@ public class OrderController {
 
     @GetMapping(value = "/orderDetail/{orderId}")
     public OrderResult selectOrderDetail(@PathVariable(value = "orderId") Long orderId) {
+//        DataSourceUtils.switchDataSource(orderId);
         return orderService.selectOrderDetail(orderId);
     }
 

@@ -8,6 +8,7 @@ spring:
   profiles:
 #    active: sharding_table   #分表
     active: sharding_database #分库分表
+#    active: sharding_dynamic #动态多数据源
 
 mybatis-plus:
   mapper-locations: mapper/*.xml

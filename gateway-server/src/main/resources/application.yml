@@ -54,6 +54,11 @@ spring:
           predicates:
             - Path=/mq2/**
 
+        - id: rabbitmq
+          uri: lb://rabbitmq
+          predicates:
+            - Path=/rabbitmq/**
+
         - id: sharding-jdbc
           uri: lb://sharding-jdbc
           predicates:
