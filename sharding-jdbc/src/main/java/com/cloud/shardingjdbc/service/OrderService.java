@@ -3,6 +3,8 @@ package com.cloud.shardingjdbc.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloud.shardingjdbc.entity.TbOrder;
 import com.cloud.shardingjdbc.param.OrderListParam;
+import com.cloud.shardingjdbc.param.OrderParam;
+import com.cloud.shardingjdbc.result.OrderResult;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -11,5 +13,9 @@ import com.github.pagehelper.PageInfo;
  * @Description:
  */
 public interface OrderService extends IService<TbOrder> {
-    PageInfo<TbOrder> pageList(OrderListParam param);
+    PageInfo<OrderResult> pageList(OrderListParam param);
+
+    void saveOrUpdateOrder(OrderParam orderParam);
+
+    OrderResult selectOrderDetail(Long orderId);
 }

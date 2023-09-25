@@ -1,9 +1,11 @@
 package com.cloud.shardingjdbc.controller;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import cn.hutool.json.JSONUtil;
 import com.cloud.shardingjdbc.entity.TbOrder;
 import com.cloud.shardingjdbc.param.OrderListParam;
+import com.cloud.shardingjdbc.param.OrderParam;
+import com.cloud.shardingjdbc.result.OrderResult;
 import com.cloud.shardingjdbc.service.OrderService;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -24,20 +26,19 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    @PostMapping(value = "/save")
-    public void save(@RequestBody TbOrder tbOrder) {
-        tbOrder.setId(IdWorker.getId());
-        log.info("新增的订单id为：{}", tbOrder.getId());
-        orderService.save(tbOrder);
+    @PostMapping(value = "/saveOrUpdateOrder")
+    public void saveOrUpdateOrder(@RequestBody OrderParam orderParam) {
+        log.info("新增或编辑订单的入参为：{}", JSONUtil.toJsonStr(orderParam));
+        orderService.saveOrUpdateOrder(orderParam);
     }
 
     @GetMapping(value = "/orderDetail/{orderId}")
-    public List<TbOrder> selectOrderList(@PathVariable(value = "orderId") Long orderId) {
-        return orderService.listByIds(CollectionUtil.newArrayList(orderId));
+    public OrderResult selectOrderDetail(@PathVariable(value = "orderId") Long orderId) {
+        return orderService.selectOrderDetail(orderId);
     }
 
     @PostMapping(value = "/pageList")
-    public PageInfo<TbOrder> pageList(@RequestBody OrderListParam param) {
+    public PageInfo<OrderResult> pageList(@RequestBody OrderListParam param) {
         return orderService.pageList(param);
     }
 }
