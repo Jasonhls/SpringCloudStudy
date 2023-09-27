@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @Author: 何立森
  * @Date: 2023/09/25/15:16
- * @Description: 动态切库，一般只适合与租户隔离这种类型的业务
+ * @Description: 动态切库，一般只适合与租户id隔离这种类型的业务，不适合业务数据的分库分表
  */
 @Slf4j
 @Component
