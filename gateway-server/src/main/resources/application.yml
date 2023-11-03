@@ -64,6 +64,11 @@ spring:
           predicates:
             - Path=/sharding/**
 
+        - id: flowable
+          uri: lb://flowable
+          predicates:
+            - Path=/flowable/**
+
 management:
   endpoints:
     web:

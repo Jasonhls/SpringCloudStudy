@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * @Author: 何立森
  * @Date: 2023/02/28/16:26
@@ -25,6 +29,17 @@ public class StudentController {
     @PostMapping(value = "/list")
     public PageInfo<Student> selectList(@RequestBody StudentPageParam param) {
         return studentService.selectList(param);
+    }
+
+    @PostMapping(value = "/currentRequestTest")
+    public void currentRequestTest() {
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        AtomicInteger atomicInteger = new AtomicInteger(1);
+        for (int i = 0; i < 100; i++) {
+            executorService.execute(() -> {
+                studentService.currentRequestTest(atomicInteger.getAndIncrement());
+            });
+        }
     }
 
     @PostMapping(value = "/labelUseExample")

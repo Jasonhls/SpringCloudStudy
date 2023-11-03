@@ -27,6 +27,7 @@
         <module>rabbitmq</module>
         <module>seata-client</module>
         <module>sharding-jdbc</module>
+        <module>flowable</module>
     </modules>
 
     <properties>
@@ -44,6 +45,7 @@
         <spring-cloud-starter-alibaba-seata.verison>2021.1</spring-cloud-starter-alibaba-seata.verison>
         <fastjson.version>2.0.25</fastjson.version>
         <druid.version>1.1.2</druid.version>
+        <flowable.version>6.7.2</flowable.version>
     </properties>
 
     <dependencyManagement>
@@ -120,6 +122,12 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>${flowable.version}</version>
             </dependency>
 
             <dependency>

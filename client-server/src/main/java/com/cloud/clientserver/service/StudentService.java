@@ -12,4 +12,8 @@ import com.github.pagehelper.PageInfo;
  */
 public interface StudentService extends IService<Student> {
     PageInfo<Student> selectList(StudentPageParam param);
+
+    void insertStudent(Student student);
+
+    void currentRequestTest(int num);
 }
