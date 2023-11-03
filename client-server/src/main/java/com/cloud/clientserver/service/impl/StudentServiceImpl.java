@@ -61,6 +61,7 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         try {
             log.info("加锁了");
             lock.lock();
+            //这里可能会查询不到前一个事务提交的数据
             selectStudent(num);
             Student s = new Student();
             s.setName("编号");
