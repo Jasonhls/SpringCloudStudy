@@ -69,6 +69,11 @@ spring:
           predicates:
             - Path=/flowable/**
 
+        - id: canal
+          uri: lb://canal
+          predicates:
+            - Path=/canal/**
+
 management:
   endpoints:
     web:

@@ -28,6 +28,7 @@
         <module>seata-client</module>
         <module>sharding-jdbc</module>
         <module>flowable</module>
+        <module>canal</module>
     </modules>
 
     <properties>
