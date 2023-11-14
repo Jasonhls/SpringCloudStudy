@@ -1,0 +1,146 @@
+canal结合rabbitmq监听mysql的binlog实现数据同步的方法总结：
+1、修改mysql的配置：
+linux环境中mysql的配置文件为my.cnf，window中为my.ini，window中这个文件寻找方法：
+电脑-->管理-->程序-->MySQL80，右键-->属性，找到可执行文件的路径如："C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe" --defaults-file="C:\ProgramData\MySQL\MySQL Server 8.0\my.ini" MySQL80。
+log-bin=mysql-bin # 开启 binlog
+binlog-format=ROW # 选择 ROW 模式
+server_id=1 # 配置 MySQL replaction 需要定义，不要和 canal 的 slaveId 重复
+修改后重启mysql，window中，管理-->程序-->MySQL80，右键重新启动。
+
+2、官网下载canal，官网地址：https://github.com/alibaba/canal/releases/tag/canal-1.1.5
+这里是下载v1.1.5版本的canal，下载解压后，修改两个配置文件，一个是conf/example/instance.properties，
+一个是config/canal.properties。
+
+instance.properties修改内容如下：
+# position info
+canal.instance.master.address=127.0.0.1:3306
+# username/password
+canal.instance.dbUsername=root
+canal.instance.dbPassword=123456
+# mq config，这里配置的是rabbitmq监听队列的routingKey。命名只能是数字，字母或下划线，不能为其他字符。
+canal.mq.topic=canal_routing_key
+
+canal.properties修改内容如下：
+# tcp, kafka, rocketMQ, rabbitMQ
+#canal.serverMode = tcp
+#修改模式为rabbitMQ
+canal.serverMode = rabbitMQ
+##################################################
+######### 		    RabbitMQ	     #############
+##################################################
+rabbitmq.host = 127.0.0.1
+rabbitmq.virtual.host = /
+rabbitmq.exchange = canal_exchange
+rabbitmq.username = guest
+rabbitmq.password = guest
+rabbitmq.deliveryMode =
+
+进入bin，双击startup.bat，即可启动canal。
+
+3、SpringBoot项目监听数据即可，监听代码如下：
+package com.cloud.canal.consumer;
+
+import cn.hutool.json.JSONUtil;
+import com.cloud.canal.pojo.CanalMessage;
+import com.rabbitmq.client.Channel;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.stereotype.Component;
+
+import java.io.IOException;
+
+/**
+ * @Author: 何立森
+ * @Date: 2023/11/14/16:11
+ * @Description:
+ */
+@Component
+@Slf4j
+public class CanalConsumer {
+
+    @RabbitListener(
+            bindings = {
+                @QueueBinding(value = @Queue(value = "canal_queue", durable = "true"),
+                exchange = @Exchange(value = "canal_exchange"),
+                key = "canal_routing_key")
+            },
+            ackMode = "MANUAL"
+    )
+    public void handleDataChange(Message message, Channel channel) throws IOException {
+        //将message转换为CanalMessage
+        try {
+            byte[] body = message.getBody();
+            String msg = new String(body);
+            //msg样子为：{"data":[{"id":"1720349049869471748","name":"canal学生003","age":"30","sex":"1","create_at":"2023-11-14 20:01:47"}],"database":"test","es":1699963307000,"id":1,"isDdl":false,"mysqlType":{"id":"bigint","name":"varchar(50)","age":"int","sex":"tinyint","create_at":"datetime"},"old":null,"pkNames":["id"],"sql":"","sqlType":{"id":-5,"name":12,"age":4,"sex":-6,"create_at":93},"table":"t_student","ts":1699963876649,"type":"INSERT"}
+            log.info("接受到的canal消息为：{}", msg);
+            CanalMessage canalMessage = JSONUtil.toBean(msg, CanalMessage.class);
+            String table = canalMessage.getTable();
+            if(table.equals("t_student")) {
+                log.info("学生表信息变化了");
+            }
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        }catch (Exception e) {
+            e.printStackTrace();
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+        }
+    }
+}
+
+
+CanalMessage对象定义如下：
+
+package com.cloud.canal.pojo;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+/**
+ * @Author: 何立森
+ * @Date: 2023/11/14/16:23
+ * @Description:
+ */
+@NoArgsConstructor
+@Data
+public class CanalMessage<T> {
+
+    @JsonProperty("data")
+    private List<T> data;
+
+    @JsonProperty("database")
+    private String database;
+
+    @JsonProperty("es")
+    private Long es;
+
+    @JsonProperty("id")
+    private Integer id;
+
+    @JsonProperty("isDdl")
+    private Boolean isDdl;
+
+    @JsonProperty("old")
+    private List<T> old;
+
+    @JsonProperty("pkNames")
+    private List<String> pkNames;
+
+    @JsonProperty("sql")
+    private String sql;
+
+    @JsonProperty("table")
+    private String table;
+
+    @JsonProperty("ts")
+    private Long ts;
+
+    @JsonProperty("type")
+    private String type;
+}
+

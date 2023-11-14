@@ -47,6 +47,5 @@ public class CanalConsumer {
             e.printStackTrace();
             channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
         }
-
     }
 }
