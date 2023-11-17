@@ -36,8 +36,9 @@ public class CanalConsumer {
             byte[] body = message.getBody();
             String msg = new String(body);
             //msg样子为：{"data":[{"id":"1720349049869471748","name":"canal学生003","age":"30","sex":"1","create_at":"2023-11-14 20:01:47"}],"database":"test","es":1699963307000,"id":1,"isDdl":false,"mysqlType":{"id":"bigint","name":"varchar(50)","age":"int","sex":"tinyint","create_at":"datetime"},"old":null,"pkNames":["id"],"sql":"","sqlType":{"id":-5,"name":12,"age":4,"sex":-6,"create_at":93},"table":"t_student","ts":1699963876649,"type":"INSERT"}
-            log.info("接受到的canal消息为：{}", msg);
             CanalMessage canalMessage = JSONUtil.toBean(msg, CanalMessage.class);
+            log.info("Canal 监听到【{}】表发生【{}】操作, canalMessage: {}", canalMessage.getTable(), canalMessage.getType(),
+                    JSONUtil.toJsonStr(canalMessage.getData()));
             String table = canalMessage.getTable();
             if(table.equals("t_student")) {
                 log.info("学生表信息变化了");

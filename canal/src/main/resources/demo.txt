@@ -1,4 +1,8 @@
 canal结合rabbitmq监听mysql的binlog实现数据同步的方法总结：
+参考：https://zhuanlan.zhihu.com/p/493843122?utm_id=0
+https://blog.csdn.net/fengyuyeguirenenen/article/details/126886770
+https://www.cnblogs.com/xfeiyun/p/17468158.html
+
 1、修改mysql的配置：
 linux环境中mysql的配置文件为my.cnf，window中为my.ini，window中这个文件寻找方法：
 电脑-->管理-->程序-->MySQL80，右键-->属性，找到可执行文件的路径如："C:\Program Files\MySQL\MySQL Server 8.0\bin\mysqld.exe" --defaults-file="C:\ProgramData\MySQL\MySQL Server 8.0\my.ini" MySQL80。
