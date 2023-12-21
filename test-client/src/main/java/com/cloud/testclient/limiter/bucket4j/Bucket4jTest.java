@@ -4,7 +4,7 @@ import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket4j;
 import io.github.bucket4j.Refill;
 import io.github.bucket4j.local.LocalBucket;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.Duration;

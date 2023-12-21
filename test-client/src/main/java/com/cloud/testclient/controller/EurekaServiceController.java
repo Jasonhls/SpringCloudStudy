@@ -1,8 +1,8 @@
 package com.cloud.testclient.controller;
 
 import cn.hutool.json.JSONUtil;
-import com.netflix.loadbalancer.ILoadBalancer;
-import com.netflix.loadbalancer.Server;
+//import com.netflix.loadbalancer.ILoadBalancer;
+//import com.netflix.loadbalancer.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.ribbon.SpringClientFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,15 +18,15 @@ import java.util.Map;
 @RequestMapping(value = "/eurekaService")
 public class EurekaServiceController {
 
-    @Autowired
-    private SpringClientFactory springClientFactory;
+//    @Autowired
+//    private SpringClientFactory springClientFactory;
 
 
     /**
      * 获取eureka的注册服务的实例列表
      * @return
      */
-    @GetMapping(value = "/getServiceList")
+    /*@GetMapping(value = "/getServiceList")
     public List<String> getServiceList() {
         ILoadBalancer loadBalancer = springClientFactory.getLoadBalancer("test-client");
         ILoadBalancer loadBalancer1 = springClientFactory.getLoadBalancer("eureka-client");
@@ -50,7 +50,7 @@ public class EurekaServiceController {
             map.put(s.getId(), JSONUtil.toJsonStr(s.getMetaInfo()));
         }
         return JSONUtil.toJsonStr(map);
-    }
+    }*/
 }
 
 

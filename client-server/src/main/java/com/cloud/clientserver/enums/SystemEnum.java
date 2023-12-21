@@ -3,7 +3,6 @@ package com.cloud.clientserver.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
@@ -22,7 +21,7 @@ public class SystemEnum {
 
         private String desc;
 
-        public static SexType getEnumByCode(@NotNull Integer code) {
+        public static SexType getEnumByCode(Integer code) {
             for (SexType value : values()) {
                 if (Objects.equals(value.getCode(),code)) {
                     return value;
@@ -42,7 +41,7 @@ public class SystemEnum {
 
         private String desc;
 
-        public static ShopType getEnumByCode(@NotNull Integer code) {
+        public static ShopType getEnumByCode(Integer code) {
             for (ShopType value : values()) {
                 if (Objects.equals(value.getCode(),code)) {
                     return value;

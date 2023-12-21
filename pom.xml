@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.4.RELEASE</version>
+        <version>2.7.8</version>
     </parent>
 
     <modules>
@@ -21,7 +21,6 @@
         <module>gateway-server</module>
         <module>test-client</module>
         <module>test-client-api</module>
-        <module>mq-service</module>
         <module>rocketmq</module>
         <module>es-client</module>
         <module>rabbitmq</module>
@@ -34,7 +33,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <spring-cloud.version>Hoxton.SR8</spring-cloud.version>
+        <spring-cloud.version>2021.0.8</spring-cloud.version>
         <hutool.version>5.8.8</hutool.version>
         <redisson-spring-boot-starter.version>3.14.1</redisson-spring-boot-starter.version>
         <elasticsearch.version>7.14.2</elasticsearch.version>
@@ -47,6 +46,7 @@
         <fastjson.version>2.0.25</fastjson.version>
         <druid.version>1.1.2</druid.version>
         <flowable.version>6.7.2</flowable.version>
+        <mysql-connector.version>8.0.30</mysql-connector.version>
     </properties>
 
     <dependencyManagement>
@@ -164,6 +164,12 @@
                         <artifactId>seata-spring-boot-starter</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

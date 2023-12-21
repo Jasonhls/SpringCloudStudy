@@ -1,8 +1,10 @@
 package com.cloud.testclient.controller;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.cloud.testclient.api.HelloFeignClient;
 import com.cloud.testclient.req.StudentReq;
 import com.cloud.testclient.resp.Student;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @RestController
 @RequestMapping(value = "/hello")
+@Slf4j
 public class HelloController implements HelloFeignClient {
     @GetMapping(value = "/sayHello")
     public String getSayHelloResult(HttpServletRequest request, String name) {
@@ -22,6 +25,7 @@ public class HelloController implements HelloFeignClient {
 
     @PostMapping(value = "/getStudent")
     public Student getStudent(@RequestBody StudentReq studentReq) {
+        log.info("我是端口号为" + SpringUtil.getProperty("server.port") + "的client服务");
         Student s = new Student();
         s.setName(studentReq.getName());
         s.setAge(studentReq.getAge());
