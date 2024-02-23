@@ -44,16 +44,6 @@ spring:
             #这里的path必须与项目的server.servlet.context-path保持一致
             - Path=/test/**
 
-        - id: mq-service
-          uri: lb://mq-service
-          predicates:
-            - Path=/mq/**
-
-        - id: mq2-service
-          uri: lb://mq2-service
-          predicates:
-            - Path=/mq2/**
-
         - id: rabbitmq
           uri: lb://rabbitmq
           predicates:

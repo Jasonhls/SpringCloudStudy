@@ -48,6 +48,7 @@ public class HelloController implements HelloFeignClient {
 
     @PostMapping(value = "/getStr")
     public String getStr() {
+        log.info("我是端口号为" + SpringUtil.getProperty("server.port") + "的client服务");
         return "hls";
     }
 }
