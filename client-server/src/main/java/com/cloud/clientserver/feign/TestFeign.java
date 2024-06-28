@@ -13,4 +13,6 @@ public interface TestFeign {
 
     @PostMapping(value = "/getStr")
     String test();
+
+
 }

@@ -1,5 +1,6 @@
 package com.cloud.clientserver.controller;
 
+import cn.hutool.extra.spring.SpringUtil;
 import com.cloud.clientserver.feign.TestFeign;
 import com.cloud.clientserver.pojo.InstanceVipAddressParam;
 import com.netflix.appinfo.InstanceInfo;
@@ -7,6 +8,7 @@ import com.netflix.discovery.DiscoveryClient;
 import com.netflix.discovery.DiscoveryManager;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.EurekaClientConfig;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ import java.util.concurrent.Executors;
  */
 @RestController
 @RequestMapping(value = "/hello")
+@Slf4j
 public class HelloController {
 
     @Autowired
@@ -29,6 +32,7 @@ public class HelloController {
 
     @GetMapping(value = "/sayHello")
     public String sayHello(@RequestParam(value = "name") String name) {
+        log.info("我是端口号为" + SpringUtil.getProperty("server.port") + "的clientServer服务");
         return "hello, " + name;
     }
 

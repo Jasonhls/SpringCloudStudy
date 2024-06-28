@@ -28,7 +28,9 @@ spring:
         #id随便，保证唯一就行
         - id: eureka-client
           #方式一：
-          uri: ${test.uri}
+#          uri: ${test.uri}
+          #方式二：lb://注册的微服务名称
+          uri: lb://eureka-client
 #          uri: http://localhost:8891/client
           predicates:
             #这里的path必须与项目的server.servlet.context-path保持一致
