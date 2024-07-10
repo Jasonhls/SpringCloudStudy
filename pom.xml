@@ -24,7 +24,6 @@
         <module>rocketmq</module>
         <module>es-client</module>
         <module>rabbitmq</module>
-        <module>seata-client</module>
         <module>sharding-jdbc</module>
         <module>flowable</module>
         <module>canal</module>
@@ -41,8 +40,6 @@
         <easyexcel.verison>2.2.10</easyexcel.verison>
         <rocketmq-spring-boot-starter.version>2.2.2</rocketmq-spring-boot-starter.version>
         <pagehelper.verison>5.2.1</pagehelper.verison>
-        <seata.version>1.5.2</seata.version>
-        <spring-cloud-starter-alibaba-seata.verison>2021.1</spring-cloud-starter-alibaba-seata.verison>
         <fastjson.version>2.0.25</fastjson.version>
         <druid.version>1.1.2</druid.version>
         <flowable.version>6.7.2</flowable.version>
@@ -129,41 +126,6 @@
                 <groupId>org.flowable</groupId>
                 <artifactId>flowable-spring-boot-starter</artifactId>
                 <version>${flowable.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-spring-boot-starter</artifactId>
-                <version>${seata.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-                <version>${spring-cloud-starter-alibaba-seata.verison}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.seata</groupId>
-                        <artifactId>seata-spring-boot-starter</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <dependency>
-                <groupId>io.seata</groupId>
-                <artifactId>seata-spring-boot-starter</artifactId>
-                <version>${seata.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba.cloud</groupId>
-                <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-                <version>${spring-cloud-starter-alibaba-seata.verison}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.seata</groupId>
-                        <artifactId>seata-spring-boot-starter</artifactId>
-                    </exclusion>
-                </exclusions>
             </dependency>
 
             <dependency>
