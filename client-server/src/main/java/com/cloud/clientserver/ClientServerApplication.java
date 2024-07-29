@@ -1,5 +1,7 @@
 package com.cloud.clientserver;
 
+import cn.hutool.extra.spring.SpringUtil;
+import com.cloud.clientserver.bean.Person;
 import com.cloud.clientserver.config.loadbalancer.CustomLoadBalancerConfiguration;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.mybatis.spring.annotation.MapperScan;
@@ -28,6 +30,8 @@ public class ClientServerApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ClientServerApplication.class, args);
+        String[] names = SpringUtil.getBeanNamesForType(Person.class);
+        System.out.println("启动成功，person类型的bean名称集合为：" + names);
     }
 
     @Bean
